@@ -49,6 +49,7 @@ document.addEventListener('DOMContentLoaded', function () {
       index = (i + items.length) % items.length;
       const item = items[index];
       lbImg.src = item.dataset.full || item.querySelector('img').src;
+      lbImg.style.display = 'block';
       lbImg.alt = item.dataset.title || '';
       lbCaption.textContent = item.dataset.title || '';
     };
@@ -112,4 +113,35 @@ document.addEventListener('DOMContentLoaded', function () {
     field.addEventListener('input', update);
     update();
   });
+
+  /* Admin menu drawer (mobile) */
+  const sidebar  = document.getElementById('adminSidebar');
+  if (sidebar) {
+    const toggle   = document.getElementById('adminMenuToggle');
+    const closeBtn = document.getElementById('adminSidebarClose');
+    const backdrop = document.getElementById('adminSidebarBackdrop');
+
+    const setOpen = (open) => {
+      sidebar.classList.toggle('open', open);
+      if (backdrop) backdrop.classList.toggle('visible', open);
+      if (toggle) toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      document.body.style.overflow = open ? 'hidden' : '';
+    };
+
+    if (toggle) {
+      toggle.addEventListener('click', () => setOpen(!sidebar.classList.contains('open')));
+    }
+    if (closeBtn) closeBtn.addEventListener('click', () => setOpen(false));
+    if (backdrop) backdrop.addEventListener('click', () => setOpen(false));
+
+    sidebar.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        if (window.innerWidth < 992) setOpen(false);
+      });
+    });
+
+    document.addEventListener('keydown', (ev) => {
+      if (ev.key === 'Escape' && sidebar.classList.contains('open')) setOpen(false);
+    });
+  }
 });

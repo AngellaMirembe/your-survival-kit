@@ -150,8 +150,7 @@ include __DIR__ . '/includes/header.php';
         <div class="col-md-6 col-lg-4">
           <article class="story-card">
             <a href="<?= e(url('news/' . $n['slug'])) ?>">
-              <?php if ($n['image']): ?><img src="<?= e(image_src($n['image'])) ?>" alt="<?= e($n['title']) ?>">
-              <?php else: ?><img src="<?= e(asset('img/placeholder.jpg')) ?>" alt="Story image placeholder"><?php endif; ?>
+              <img src="<?= e(image_src($n['image'])) ?>" alt="<?= e($n['title']) ?>" loading="lazy">
             </a>
             <div class="story-body">
               <div class="story-meta">
@@ -211,7 +210,7 @@ include __DIR__ . '/includes/header.php';
       </div>
       <div>
         <a href="<?= e(url('donate')) ?>" class="btn btn-light-ys btn-lg me-2">Donate now</a>
-        <a href="<?= e(url('volunteer')) ?>" class="btn btn-outline-light btn-lg">Become a volunteer</a>
+        <a href="<?= e(url('volunteer') . '#apply') ?>" class="btn btn-outline-light btn-lg">Become a volunteer</a>
       </div>
     </div>
   </div>

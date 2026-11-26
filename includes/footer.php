@@ -34,8 +34,8 @@
         <h5>Get Involved</h5>
         <ul class="footer-links">
           <li><a href="<?= e(url('donate')) ?>">Donate</a></li>
-          <li><a href="<?= e(url('volunteer')) ?>">Volunteer</a></li>
-          <li><a href="<?= e(url('volunteer')) ?>">Partner With Us</a></li>
+          <li><a href="<?= e(url('volunteer') . '#apply') ?>">Volunteer</a></li>
+          <li><a href="<?= e(url('volunteer') . '?interest=' . rawurlencode('Partner coordination') . '#apply') ?>">Partner With Us</a></li>
           <li><a href="<?= e(url('contact')) ?>">Contact</a></li>
           <li><a href="<?= e(url('admin/login.php')) ?>">Staff Login</a></li>
         </ul>
@@ -83,16 +83,20 @@
   </a>
 <?php endif; ?>
 
+<a class="staff-login-float" href="<?= e(url('admin/login.php?reauth=1')) ?>" title="Staff login — sign in again" aria-label="Staff login — sign in again">
+  <i class="bi bi-person-badge"></i>
+</a>
+
 <!-- Lightbox (used by the gallery) -->
 <div class="ys-lightbox" id="ysLightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
   <button class="lb-close" aria-label="Close">&times;</button>
   <button class="lb-nav lb-prev" aria-label="Previous image">&#8249;</button>
-  <img src="" alt="">
+  <img alt="" style="display:none">
   <button class="lb-nav lb-next" aria-label="Next image">&#8250;</button>
   <div class="lb-caption"></div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="<?= e(asset('js/main.js')) ?>"></script>
+<script src="<?= e(asset('js/main.js') . '?v=20261126b') ?>"></script>
 </body>
 </html>

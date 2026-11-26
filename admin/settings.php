@@ -41,6 +41,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         foreach ($editableKeys as $key) {
             if (!array_key_exists($key, $_POST['setting'] ?? [])) continue;
             $value = trim($_POST['setting'][$key]);
+            // Gmail App Passwords are often pasted with spaces; Gmail needs them removed.
+            if ($key === 'smtp_pass') $value = preg_replace('/\s+/', '', $value);
             // A blank password means "keep the one already saved".
             if ($key === 'smtp_pass' && $value === '') continue;
             $pdo->prepare(
@@ -142,7 +144,7 @@ $stats = $pdo->query('SELECT * FROM stats ORDER BY sort_order')->fetchAll();
       <p class="small text-secondary mb-3">
         Enter these and confirmation/event emails will be sent for real, including on localhost.
         For Gmail use <code>smtp.gmail.com</code>, port <code>587</code>, encryption <code>TLS</code>,
-        your full Gmail address as username, and a <strong>Gmail App Password</strong> (not your normal login password).
+        username <code>yoursurvivalkit25@gmail.com</code>, and a <strong>Gmail App Password</strong> (not your normal login password).
       </p>
       <div class="row g-3">
         <?php foreach ($smtpKeys as $key): ?>
@@ -228,7 +230,7 @@ $stats = $pdo->query('SELECT * FROM stats ORDER BY sort_order')->fetchAll();
   </div>
 </div>
 
-<div class="admin-card">
+<div class="admin-card" id="stats">
   <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2">
     <h4 class="mb-0">Impact numbers on the home page</h4>
     <button class="btn btn-outline-ys btn-sm" data-bs-toggle="collapse" data-bs-target="#statForm"><i class="bi bi-plus-lg me-1"></i> Add stat</button>

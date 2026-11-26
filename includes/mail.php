@@ -46,7 +46,7 @@ function mail_smtp_settings(): array
         'host'   => trim((string) setting('smtp_host', '')),
         'port'   => $port,
         'user'   => trim((string) setting('smtp_user', '')),
-        'pass'   => (string) setting('smtp_pass', ''),
+        'pass'   => preg_replace('/\s+/', '', (string) setting('smtp_pass', '')),
         'secure' => $secure,
     ];
 }
@@ -175,8 +175,11 @@ function smtp_send_email(string $to, string $subject, string $html, string $from
     return $sent;
 }
 
-/** Send an HTML email. Returns true only when delivery (or logging) succeeded. */
-function send_site_email(string $to, string $subject, string $html): bool
+/**
+ * Send an HTML email. Returns true only when delivery (or logging) succeeded.
+ * $footer replaces the default newsletter footer for form notifications.
+ */
+function send_site_email(string $to, string $subject, string $html, string $footer = ''): bool
 {
     if (!filter_var($to, FILTER_VALIDATE_EMAIL)) {
         return false;
@@ -188,13 +191,14 @@ function send_site_email(string $to, string $subject, string $html): bool
         : (filter_var($smtpUser, FILTER_VALIDATE_EMAIL) ? $smtpUser : 'no-reply@localhost');
     $name = str_replace(["\r", "\n"], '', setting('site_name', SITE_NAME));
     $subject = str_replace(["\r", "\n"], '', $subject);
+    $footer = $footer !== '' ? $footer
+        : 'You are receiving this because you subscribed to updates. You can stop at any time.';
 
     $body = '<div style="font-family:Arial,sans-serif;line-height:1.6;color:#333;max-width:600px">'
           . '<p style="font-size:1.2rem;color:#a96538;font-weight:bold">' . e($name) . '</p>'
           . $html
           . '<hr style="border:0;border-top:1px solid #eee;margin-top:28px">'
-          . '<p style="font-size:.78rem;color:#888">You are receiving this because you subscribed to updates. '
-          . 'You can stop at any time.</p></div>';
+          . '<p style="font-size:.78rem;color:#888">' . e($footer) . '</p></div>';
 
     if (mail_smtp_configured()) {
         if (smtp_send_email($to, $subject, $body, $from, $name)) {

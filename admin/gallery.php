@@ -86,7 +86,7 @@ if ($action === 'new' || $action === 'edit'): ?>
       <div class="col-md-6">
         <label class="form-label" for="image">Image <?= $action === 'new' ? '*' : '(leave blank to keep current)' ?></label>
         <input type="file" class="form-control" id="image" name="image" accept="image/*" data-preview="#imagePreview" <?= $action === 'new' ? 'required' : '' ?>>
-        <img id="imagePreview" src="<?= e($photo['image'] ? UPLOAD_URL . rawurlencode($photo['image']) : asset('img/placeholder.jpg')) ?>" alt="Preview" class="mt-2 rounded" style="max-height:180px;<?= $photo['image'] ? '' : 'display:none' ?>">
+        <img id="imagePreview" src="<?= e($photo['image'] ? UPLOAD_URL . rawurlencode($photo['image']) : asset('img/outreach/outreach-09.jpg')) ?>" alt="Preview" class="mt-2 rounded" style="max-height:180px;<?= $photo['image'] ? '' : 'display:none' ?>">
       </div>
     </div>
     <div class="mt-4 d-flex gap-2">

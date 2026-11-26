@@ -9,9 +9,10 @@
 UPDATE site_settings SET setting_value = ''
   WHERE setting_key IN ('site_phone','facebook','instagram','twitter','tiktok')
     AND setting_value IN ('+255 700 000 000', 'https://facebook.com/', 'https://instagram.com/', 'https://twitter.com/', 'https://tiktok.com/');
-UPDATE site_settings SET setting_value = 'Yoursurvivalkit2025@gmail.com'
-  WHERE setting_key IN ('site_email','support_email')
-    AND setting_value IN ('info@your-survival-kit.org','support@your-survival-kit.org','');
+UPDATE site_settings SET setting_value = 'yoursurvivalkit25@gmail.com'
+  WHERE setting_key IN ('site_email','support_email','smtp_user')
+    AND setting_value IN ('info@your-survival-kit.org','support@your-survival-kit.org',
+                          '', 'Yoursurvivalkit2025@gmail.com');
 UPDATE site_settings SET setting_value = 'Uganda — meetings arranged by message'
   WHERE setting_key = 'site_address' AND setting_value IN ('Dar es Salaam, Tanzania','Uganda','');
 UPDATE site_settings SET setting_value = 'We reply when we can — usually within a few days. We are a small volunteer team.'
@@ -28,7 +29,7 @@ INSERT INTO site_settings (setting_key, setting_value) VALUES
   ('mobile_money_name',   'Amuron Rachel'),
   ('smtp_host',           'smtp.gmail.com'),
   ('smtp_port',           '587'),
-  ('smtp_user',           'Yoursurvivalkit2025@gmail.com'),
+  ('smtp_user',           'yoursurvivalkit25@gmail.com'),
   ('smtp_pass',           ''),
   ('smtp_secure',         'tls')
 ON DUPLICATE KEY UPDATE setting_value =
@@ -75,6 +76,8 @@ UPDATE stats SET label='Outreach days', value=0, suffix='' WHERE id=4 AND value 
 UPDATE news SET image='outreach-16.jpg' WHERE id=1 AND image IN ('kit.jpg','');
 UPDATE news SET image='outreach-19.jpg' WHERE id=2 AND image IN ('volunteer.jpg','');
 UPDATE news SET image='outreach-10.jpg' WHERE id=3 AND image IN ('children.jpg','');
+-- Any story added without a photo gets a real outreach image, never a placeholder.
+UPDATE news SET image='outreach-13.jpg' WHERE image IS NULL OR image='';
 UPDATE news SET content = REPLACE(content, 'across the country', 'across Uganda') WHERE id=2;
 UPDATE news SET content = REPLACE(content, 'a winter jacket', 'a school bag') WHERE id=3;
 

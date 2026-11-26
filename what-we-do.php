@@ -115,7 +115,7 @@ include __DIR__ . '/includes/header.php';
       <div><h3 class="mb-1">Ready to make a kit?</h3><p class="mb-0">Give a gift or bring your time. Both are equally welcome.</p></div>
       <div>
         <a href="<?= e(url('donate')) ?>" class="btn btn-light-ys">Donate</a>
-        <a href="<?= e(url('volunteer')) ?>" class="btn btn-outline-light">Volunteer</a>
+        <a href="<?= e(url('volunteer') . '#apply') ?>" class="btn btn-outline-light">Volunteer</a>
       </div>
     </div>
   </div>

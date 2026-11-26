@@ -145,11 +145,11 @@ function delete_image(?string $filename): void
     }
 }
 
-function image_src(?string $filename, string $placeholder = 'placeholder.jpg'): string
+function image_src(?string $filename, string $fallback = 'outreach/outreach-09.jpg'): string
 {
     return $filename && is_file(UPLOAD_DIR . $filename)
         ? UPLOAD_URL . rawurlencode($filename)
-        : asset('img/' . $placeholder);
+        : asset('img/' . $fallback);
 }
 
 /* ---------------- Uganda phone / WhatsApp helpers ---------------- */

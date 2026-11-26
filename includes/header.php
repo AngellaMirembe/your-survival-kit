@@ -3,7 +3,7 @@
 $pageTitle       = $pageTitle       ?? setting('site_name', SITE_NAME);
 $pageDescription = $pageDescription ?? setting('about_short', SITE_TAGLINE);
 $activePage      = $activePage      ?? '';
-$ogImage         = $ogImage         ?? asset('img/hero.jpg');
+$ogImage         = $ogImage         ?? asset('img/outreach/outreach-09.jpg');
 ?>
 <!doctype html>
 <html lang="en">
@@ -27,7 +27,7 @@ $ogImage         = $ogImage         ?? asset('img/hero.jpg');
   <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-  <link href="<?= e(asset('css/style.css')) ?>" rel="stylesheet">
+  <link href="<?= e(asset('css/style.css') . '?v=20261126b') ?>" rel="stylesheet">
 </head>
 <body>
 

@@ -38,8 +38,8 @@ CREATE TABLE IF NOT EXISTS site_settings (
 INSERT INTO site_settings (setting_key, setting_value) VALUES
 ('site_name',        'Your Survival Kit'),
 ('tagline',          'Young people. Real hope. Brighter futures.'),
-('site_email',            'Yoursurvivalkit2025@gmail.com'),
-('support_email',         'Yoursurvivalkit2025@gmail.com'),
+('site_email',            'yoursurvivalkit25@gmail.com'),
+('support_email',         'yoursurvivalkit25@gmail.com'),
 ('site_phone',            ''),
 ('site_address',          'Uganda — meetings arranged by message'),
 ('office_hours',          'We reply when we can — usually within a few days. We are a small volunteer team.'),
@@ -56,7 +56,7 @@ INSERT INTO site_settings (setting_key, setting_value) VALUES
 ('footer_note',           'Gather what we have. Give what matters.'),
 ('smtp_host',             'smtp.gmail.com'),
 ('smtp_port',             '587'),
-('smtp_user',             'Yoursurvivalkit2025@gmail.com'),
+('smtp_user',             'yoursurvivalkit25@gmail.com'),
 ('smtp_pass',             ''),
 ('smtp_secure',           'tls');
 

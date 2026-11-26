@@ -122,7 +122,7 @@ if ($action === 'new' || $action === 'edit'): ?>
       <div class="col-md-6">
         <label class="form-label" for="image">Cover image</label>
         <input type="file" class="form-control" id="image" name="image" accept="image/*" data-preview="#imagePreview">
-        <img id="imagePreview" src="<?= e($story['image'] ? UPLOAD_URL . rawurlencode($story['image']) : asset('img/placeholder.jpg')) ?>" alt="Preview" class="mt-2 rounded" style="max-height:130px;<?= $story['image'] ? '' : 'display:none' ?>">
+        <img id="imagePreview" src="<?= e($story['image'] ? UPLOAD_URL . rawurlencode($story['image']) : asset('img/outreach/outreach-09.jpg')) ?>" alt="Preview" class="mt-2 rounded" style="max-height:130px;<?= $story['image'] ? '' : 'display:none' ?>">
       </div>
     </div>
     <div class="mt-4 d-flex gap-2">

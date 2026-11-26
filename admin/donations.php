@@ -1,6 +1,6 @@
 <?php
 $adminActive = 'donations.php';
-$pageTitle   = 'Donation requests';
+$pageTitle   = 'Donation pledges';
 require_once __DIR__ . '/includes/header.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -32,7 +32,7 @@ $total = $pdo->query('SELECT COALESCE(SUM(amount),0), COUNT(*) FROM donations')-
 ?>
 
 <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-2">
-  <div><h2 class="mb-1">Donation requests</h2><p class="text-secondary mb-0">Mobile Money requests only. The donor completes payment on their own phone; confirm receipt here.</p></div>
+  <div><h2 class="mb-1">Donation pledges &amp; requests</h2><p class="text-secondary mb-0">Mobile Money requests only. The donor completes payment on their own phone; confirm receipt here.</p></div>
   <div class="admin-stat px-4 py-2" style="border-left-color:var(--ys-green-dark)">
     <span class="small">Total requested</span><h4 class="mb-0"><?= e(CURRENCY) ?> <?= e(number_format((float) $total[0], 0)) ?> <small class="text-secondary">/ <?= (int) $total[1] ?> requests</small></h4>
   </div>

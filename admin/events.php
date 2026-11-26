@@ -7,6 +7,26 @@ require_once __DIR__ . '/../includes/mail.php';
 $action = $_GET['action'] ?? 'list';
 $id     = (int) ($_GET['id'] ?? 0);
 
+/* ---------------- Email an existing event to subscribers ---------------- */
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['do'] ?? '') === 'notify') {
+    csrf_verify();
+    $eid = (int) ($_POST['id'] ?? 0);
+    $row = $pdo->prepare('SELECT * FROM events WHERE id = ? AND status = "published"');
+    $row->execute([$eid]);
+    $event = $row->fetch();
+    if (!$event) {
+        flash('error', 'Event not found, or it is still a draft.');
+    } elseif (!mail_smtp_configured()) {
+        flash('error', 'Add a Gmail App Password in Admin → Settings → Email delivery before sending event emails.');
+    } else {
+        $sent = notify_subscribers_about_event($event);
+        flash($sent ? 'success' : 'info', $sent
+            ? $sent . ' confirmed subscriber(s) emailed about this event.'
+            : 'No confirmed subscribers to email yet.');
+    }
+    redirect('admin/events.php');
+}
+
 /* ---------------- Save ---------------- */
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['do'] ?? '') === 'save') {
     csrf_verify();
@@ -129,7 +149,7 @@ if ($action === 'new' || $action === 'edit'): ?>
       <div class="col-md-6">
         <label class="form-label" for="image">Event image</label>
         <input type="file" class="form-control" id="image" name="image" accept="image/*" data-preview="#imagePreview">
-        <img id="imagePreview" src="<?= e($event['image'] ? UPLOAD_URL . rawurlencode($event['image']) : asset('img/placeholder.jpg')) ?>" alt="Preview" class="mt-2 rounded" style="max-height:140px;<?= $event['image'] ? '' : 'display:none' ?>">
+        <img id="imagePreview" src="<?= e($event['image'] ? UPLOAD_URL . rawurlencode($event['image']) : asset('img/outreach/outreach-09.jpg')) ?>" alt="Preview" class="mt-2 rounded" style="max-height:140px;<?= $event['image'] ? '' : 'display:none' ?>">
       </div>
       <div class="col-md-6">
         <div class="form-check mt-4">
@@ -175,7 +195,14 @@ if ($action === 'new' || $action === 'edit'): ?>
                   <?php if ($ev['event_date'] < $now): ?><br><small class="text-secondary">Past</small><?php endif; ?>
                 </td>
                 <td class="text-nowrap">
-                  <a class="btn btn-sm btn-outline-primary" href="<?= e(url('admin/events.php?action=edit&id=' . (int) $ev['id'])) ?>"><i class="bi bi-pencil"></i></a>
+                  <a class="btn btn-sm btn-outline-primary" href="<?= e(url('admin/events.php?action=edit&id=' . (int) $ev['id'])) ?>" title="Edit"><i class="bi bi-pencil"></i></a>
+                  <?php if ($ev['status'] === 'published'): ?>
+                    <form method="post" action="<?= e(url('admin/events.php')) ?>" class="d-inline" data-confirm="Email this event to all confirmed subscribers?">
+                      <?php csrf_field(); ?>
+                      <input type="hidden" name="do" value="notify"><input type="hidden" name="id" value="<?= (int) $ev['id'] ?>">
+                      <button class="btn btn-sm btn-outline-secondary" title="Email subscribers about this event"><i class="bi bi-envelope"></i></button>
+                    </form>
+                  <?php endif; ?>
                   <form method="post" action="<?= e(url('admin/events.php')) ?>" class="d-inline" data-confirm="Delete this event?">
                     <?php csrf_field(); ?>
                     <input type="hidden" name="do" value="delete"><input type="hidden" name="id" value="<?= (int) $ev['id'] ?>">

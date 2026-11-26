@@ -1,7 +1,9 @@
 <?php
 require_once dirname(__DIR__) . '/includes/auth.php';
 
-if (is_logged_in()) {
+// The bottom-left staff icon requests a fresh sign-in even when a session exists.
+$reauth = isset($_GET['reauth']);
+if (is_logged_in() && !$reauth) {
     redirect('admin/index.php');
 }
 
@@ -41,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
-  <link href="<?= e(asset('css/style.css')) ?>" rel="stylesheet">
+  <link href="<?= e(asset('css/style.css') . '?v=20261126b') ?>" rel="stylesheet">
 </head>
 <body class="admin-body">
 <div class="login-wrap">
@@ -56,7 +58,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <div class="alert alert-danger small"><?= e($error) ?></div>
     <?php endif; ?>
 
-    <form method="post" action="<?= e(url('admin/login.php')) ?>">
+    <?php if ($reauth && is_logged_in()): ?>
+      <div class="alert alert-info small">
+        You are signed in as <strong><?= e(current_admin()['name']) ?></strong>. Enter your password to continue.
+        <a class="d-block mt-1" href="<?= e(url('admin/logout.php')) ?>">Not you? Sign out</a>
+      </div>
+    <?php endif; ?>
+
+    <form method="post" action="<?= e(url('admin/login.php') . ($reauth ? '?reauth=1' : '')) ?>">
       <?php csrf_field(); ?>
       <div class="mb-3">
         <label class="form-label" for="email">Email address</label>
@@ -73,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <a href="<?= e(url()) ?>" class="small"><i class="bi bi-arrow-left me-1"></i> Back to website</a>
     </div>
     <p class="text-center text-secondary small mt-4 mb-0" style="font-size:.72rem">
-      Default: admin@your-survival-kit.org / ChangeMe123! — change this after your first login.
+      Staff access only. If you cannot sign in, ask the team lead to reset your password.
     </p>
   </div>
 </div>

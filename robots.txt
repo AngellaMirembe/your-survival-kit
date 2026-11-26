@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /includes/
+Disallow: /database/
+Disallow: /docs/
+Disallow: /uploads/
+
+Sitemap: https://your-domain.example/sitemap.xml

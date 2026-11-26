@@ -1,0 +1,5 @@
+uploads/*
+!uploads/.htaccess
+docs/credentials.md
+*.log
+.DS_Store

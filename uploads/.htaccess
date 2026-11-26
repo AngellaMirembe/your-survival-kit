@@ -1,0 +1,5 @@
+# Only serve static image files; never execute uploaded code.
+Options -Indexes
+<FilesMatch "\.(php|php[0-9]|phtml|phar|exe|sh|py|pl|cgi)$">
+  Require all denied
+</FilesMatch>

@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Admin Dashboard | Your Survival Kit — Preview</title>
+<link rel="icon" type="image/png" href="assets/img/logo.png">
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+<link href="assets/css/style.css" rel="stylesheet">
+<style>.preview-bar{background:#1d1b19;color:#fff;font-size:.8rem;padding:7px 20px;text-align:center;position:sticky;top:0;z-index:2000}.preview-bar a{color:#96baac;text-decoration:underline;margin:0 3px}</style>
+</head><body>
+<div class="preview-bar">👁 <strong>Static preview</strong> — sample content so you can see the design.
+ <a href="index.html">Home</a>·<a href="about.html">About</a>·<a href="what-we-do.html">What We Do</a>·<a href="gallery.html">Gallery</a>·<a href="news.html">News</a>·<a href="donate.html">Donate</a>·<a href="volunteer.html">Get Involved</a>·<a href="contact.html">Contact</a>·<a href="admin.html">Admin</a></div>
+<div class="topbar"><div class="ys-container d-flex justify-content-between align-items-center flex-wrap">
+ <span><i class="bi bi-lightning-charge-fill me-1"></i> Youth-led charity • Dar es Salaam</span>
+ <span class="d-none d-sm-inline"><a href="mailto:info@your-survival-kit.org"><i class="bi bi-envelope me-1"></i> info@your-survival-kit.org</a><a href="tel:+255700000000"><i class="bi bi-telephone me-1"></i> +255 700 000 000</a></span>
+</div></div>
+<nav class="navbar navbar-expand-lg ys-navbar"><div class="ys-container">
+ <a class="navbar-brand" href="index.html"><img src="assets/img/logo.png" alt="Logo" class="brand-logo"><span class="brand-text">Your Survival Kit<small>GIVE WHAT MATTERS</small></span></a>
+ <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+ <div class="collapse navbar-collapse" id="mainNav"><ul class="navbar-nav ms-auto align-items-lg-center">
+  <li class="nav-item"><a class="nav-link " href="index.html">Home</a></li>
+  <li class="nav-item"><a class="nav-link " href="about.html">About</a></li>
+  <li class="nav-item"><a class="nav-link " href="what-we-do.html">What We Do</a></li>
+  <li class="nav-item"><a class="nav-link " href="gallery.html">Gallery</a></li>
+  <li class="nav-item"><a class="nav-link " href="news.html">News</a></li>
+  <li class="nav-item"><a class="nav-link " href="volunteer.html">Get Involved</a></li>
+  <li class="nav-item"><a class="nav-link " href="contact.html">Contact</a></li>
+  <li class="nav-item ms-lg-3 mt-3 mt-lg-0"><a class="btn navbar-donate" href="donate.html"><i class="bi bi-heart-fill me-1"></i> Donate</a></li>
+ </ul></div>
+</div></nav>
+<style>body.admin-body{background:#f4f6f8}.admin-sidebar{width:250px;position:fixed;inset:0 auto 0 0;background:var(--ys-ink);color:#fff;padding:24px 16px;overflow-y:auto;z-index:1040}.admin-sidebar .brand{display:flex;align-items:center;gap:10px;padding:0 8px 22px;border-bottom:1px solid rgba(255,255,255,.12);margin-bottom:18px}.admin-sidebar .brand img{height:42px;width:auto}.admin-sidebar .brand strong{font-family:var(--ys-font-head);font-size:.95rem;display:block}.admin-sidebar .nav-link{color:rgba(255,255,255,.72);border-radius:10px;padding:11px 14px;margin-bottom:4px;font-size:.92rem;display:flex;gap:12px;align-items:center}.admin-sidebar .nav-link:hover,.admin-sidebar .nav-link.active{background:var(--ys-brown);color:#fff}.admin-main{margin-left:250px;min-height:100vh}.admin-topbar{background:#fff;padding:14px 28px;border-bottom:1px solid #e7eaee;display:flex;justify-content:space-between;align-items:center}.admin-content{padding:28px}.admin-card{background:#fff;border:1px solid #e7eaee;border-radius:14px;padding:24px;box-shadow:0 4px 18px rgba(0,0,0,.04);margin-bottom:24px}.admin-stat{background:#fff;border-radius:14px;padding:20px;border-left:4px solid var(--ys-brown);box-shadow:0 4px 18px rgba(0,0,0,.04)}.admin-stat.green{border-left-color:var(--ys-green-dark)}.admin-stat.gold{border-left-color:var(--ys-gold)}.admin-stat h3{font-size:1.8rem;margin:0}.admin-stat span{color:var(--ys-muted);font-size:.82rem;text-transform:uppercase}.admin-table{width:100%;font-size:.9rem}.admin-table th{font-family:var(--ys-font-head);font-size:.78rem;text-transform:uppercase;color:var(--ys-muted);border-bottom:2px solid #eef1f4;padding:12px 10px}.admin-table td{padding:12px 10px;border-bottom:1px solid #f0f2f5}.status-pill{border-radius:50px;padding:.25em .7em;font-size:.74rem;font-weight:700}.status-pending{background:#fff3cd;color:#856404}.status-published,.status-active{background:#d4edda;color:#155724}.status-read{background:#d4edda;color:#155724}.status-unread,.status-draft{background:#e2e3e5;color:#383d41}@media(max-width:991px){.admin-sidebar{transform:translateX(-100%)}.admin-main{margin-left:0}}</style>
+<aside class="admin-sidebar"><div class="brand"><img src="assets/img/logo.png" alt=""><div><strong>Your Survival Kit</strong><small style="color:var(--ys-green)">Admin panel</small></div></div><ul class="nav flex-column">
+<li class="nav-item"><a class="nav-link active" href="#"><i class="bi bi-grid-1x2"></i> Dashboard</a></li>
+<li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-newspaper"></i> News &amp; Stories</a></li>
+<li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-images"></i> Gallery</a></li>
+<li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-cash-stack"></i> Donations</a></li>
+<li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-people"></i> Volunteers</a></li>
+<li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-envelope"></i> Messages</a></li>
+<li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-send"></i> Subscribers</a></li>
+<li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-gear"></i> Settings</a></li>
+<li class="nav-item mt-4"><a class="nav-link" href="index.html"><i class="bi bi-box-arrow-up-right"></i> View website</a></li>
+<li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-box-arrow-left"></i> Sign out</a></li>
+</ul></aside>
+<div class="admin-main"><header class="admin-topbar"><span class="text-secondary small">Admin / Dashboard</span><div class="d-flex align-items-center gap-3"><span class="small"><i class="bi bi-person-circle me-1"></i> Site Administrator</span><span class="badge bg-secondary">Admin</span></div></header>
+<div class="admin-content">
+<div class="d-flex flex-wrap justify-content-between align-items-center mb-4"><div><h2 class="mb-1">Dashboard</h2><p class="text-secondary mb-0">Welcome back. Here is what is happening today.</p></div><a href="index.html" target="_blank" class="btn btn-outline-secondary btn-sm"><i class="bi bi-box-arrow-up-right me-1"></i> View live site</a></div>
+<div class="row g-3 mb-4">
+<div class="col-6 col-lg-3"><div class="admin-stat"><span>Donation pledges</span><h3>12</h3></div></div>
+<div class="col-6 col-lg-3"><div class="admin-stat green"><span>Total pledged</span><h3>USD 485.00</h3></div></div>
+<div class="col-6 col-lg-3"><div class="admin-stat"><span>Stories</span><h3>3</h3></div></div>
+<div class="col-6 col-lg-3"><div class="admin-stat green"><span>Gallery photos</span><h3>6</h3></div></div>
+<div class="col-6 col-lg-3"><div class="admin-stat gold"><span>Unread messages</span><h3>2</h3></div></div>
+<div class="col-6 col-lg-3"><div class="admin-stat"><span>Volunteers</span><h3>8</h3></div></div>
+<div class="col-6 col-lg-3"><div class="admin-stat green"><span>Subscribers</span><h3>24</h3></div></div>
+<div class="col-6 col-lg-3"><div class="admin-stat green"><span>Published stories</span><h3>3</h3></div></div>
+</div>
+<div class="row g-4"><div class="col-lg-7"><div class="admin-card"><h5 class="mb-3">Recent donation pledges</h5><div class="table-responsive"><table class="admin-table"><thead><tr><th>Donor</th><th>Amount</th><th>Method</th><th>Status</th><th>Date</th></tr></thead><tbody>
+<tr><td><strong>Amina Yusuf</strong><br><small class="text-secondary">amina@example.com</small></td><td>USD 25.00</td><td>mobile money</td><td><span class="status-pill status-pending">Pending</span></td><td>2 hrs ago</td></tr>
+<tr><td><strong>John Peter</strong><br><small class="text-secondary">john@example.com</small></td><td>USD 50.00</td><td>bank transfer</td><td><span class="status-pill status-published">Confirmed</span></td><td>5 hrs ago</td></tr>
+<tr><td><strong>Fatuma Ali</strong><br><small class="text-secondary">fatuma@example.com</small></td><td>USD 100.00</td><td>paypal</td><td><span class="status-pill status-published">Completed</span></td><td>Yesterday</td></tr>
+</tbody></table></div></div></div>
+<div class="col-lg-5"><div class="admin-card"><h5 class="mb-3">Unread messages</h5><div class="list-group list-group-flush"><a class="list-group-item px-0 border-0 d-flex gap-3"><i class="bi bi-envelope-fill text-brown mt-1"></i><div class="small"><strong>Mary John</strong> — Donating items<div class="text-secondary">I have notebooks and sweaters to donate…</div></div></a><a class="list-group-item px-0 border-0 d-flex gap-3"><i class="bi bi-envelope-fill text-brown mt-1"></i><div class="small"><strong>Peter Kim</strong> — Partnership<div class="text-secondary">Our school would like to host a drive…</div></div></a></div></div></div></div>
+<div class="admin-card"><h5 class="mb-3">Latest stories <span class="text-secondary small fw-normal">(author join)</span></h5><div class="table-responsive"><table class="admin-table"><thead><tr><th>Title</th><th>Author</th><th>Status</th><th>Published</th></tr></thead><tbody>
+<tr><td>How to Build a Survival Kit for Children in Need</td><td>Site Administrator</td><td><span class="status-pill status-published">Published</span></td><td>Oct 12, 2026</td></tr>
+<tr><td>Why Young People Should Lead Community Change</td><td>Site Administrator</td><td><span class="status-pill status-published">Published</span></td><td>Oct 28, 2026</td></tr>
+<tr><td>Our First Community Collection Drive: What We Learned</td><td>Site Administrator</td><td><span class="status-pill status-published">Published</span></td><td>Nov 10, 2026</td></tr>
+</tbody></table></div></div>
+</div></div>
+<footer class="ys-footer"><div class="ys-container"><div class="row gy-5">
+ <div class="col-lg-4"><img src="assets/img/logo.png" alt="Logo" class="footer-logo"><h5>Your Survival Kit</h5><p class="pe-lg-4">A youth-led charity gathering everyday essentials and giving them to children in unprivileged situations.</p>
+  <div class="mt-3"><a class="social-btn d-inline-grid" href="#"><i class="bi bi-facebook"></i></a><a class="social-btn d-inline-grid" href="#"><i class="bi bi-instagram"></i></a><a class="social-btn d-inline-grid" href="#"><i class="bi bi-twitter-x"></i></a></div></div>
+ <div class="col-6 col-lg-2"><h5>Explore</h5><ul class="footer-links"><li><a href="index.html">Home</a></li><li><a href="about.html">About Us</a></li><li><a href="what-we-do.html">What We Do</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="news.html">News</a></li></ul></div>
+ <div class="col-6 col-lg-2"><h5>Get Involved</h5><ul class="footer-links"><li><a href="donate.html">Donate</a></li><li><a href="volunteer.html">Volunteer</a></li><li><a href="contact.html">Contact</a></li><li><a href="admin.html">Staff Login</a></li></ul></div>
+ <div class="col-lg-4"><h5>Stay in the loop</h5><p class="mb-3">Small updates on the children we support. No noise.</p>
+  <form class="d-flex gap-2 mb-4" onsubmit="event.preventDefault();this.innerHTML='<p class=&quot;text-success small&quot;>Thanks for subscribing!</p>'"><input type="email" class="form-control" placeholder="Your email address"><button class="btn btn-ys" type="submit">Join</button></form>
+  <h5>Reach us</h5><ul class="footer-links footer-contact list-unstyled"><li><i class="bi bi-geo-alt"></i><span>Dar es Salaam, Tanzania</span></li><li><i class="bi bi-envelope"></i><a href="#">info@your-survival-kit.org</a></li><li><i class="bi bi-telephone"></i><a href="#">+255 700 000 000</a></li></ul></div>
+</div><div class="footer-bottom d-flex flex-wrap justify-content-between gap-2"><span>&copy; 2026 Your Survival Kit. All rights reserved.</span><span><i class="bi bi-heart-fill text-danger"></i> Built with care by young people, for young people.</span></div></div></footer>
+<div class="ys-lightbox" id="ysLightbox"><button class="lb-close">&times;</button><button class="lb-nav lb-prev">&#8249;</button><img src="" alt=""><button class="lb-nav lb-next">&#8250;</button><div class="lb-caption"></div></div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/main.js"></script></body></html>

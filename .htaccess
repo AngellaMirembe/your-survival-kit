@@ -1,0 +1,51 @@
+# =========================================================
+# Your Survival Kit — Apache configuration
+# Requires mod_rewrite. On XAMPP, ensure httpd.conf has
+# AllowOverride All for the htdocs directory.
+# =========================================================
+Options -Indexes
+DirectoryIndex index.php index.html
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Force HTTPS on a live domain (localhost stays http for XAMPP)
+  RewriteCond %{HTTP_HOST} !^(localhost|127\.0\.0\.1) [NC]
+  RewriteCond %{HTTPS} off
+  RewriteCond %{HTTP:X-Forwarded-Proto} !https
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+  # Sitemap
+  RewriteRule ^sitemap\.xml$ sitemap.php [L]
+
+  # Pretty news URLs: /news/my-story  ->  news-post.php?slug=my-story
+  RewriteRule ^news/([a-zA-Z0-9-]+)/?$ news-post.php?slug=$1 [L,QSA]
+
+  # Extensionless page URLs: /about -> about.php
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME}\.php -f
+  RewriteRule ^(.+?)/?$ $1.php [L,QSA]
+</IfModule>
+
+# Security headers
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+  Header set X-Frame-Options "SAMEORIGIN"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+  Header set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+</IfModule>
+
+# Block access to sensitive file types
+<FilesMatch "\.(sql|md|log|ini|bak|env)$">
+  Require all denied
+</FilesMatch>
+
+# Cache static assets
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/jpeg "access plus 1 month"
+  ExpiresByType image/png  "access plus 1 month"
+  ExpiresByType image/webp "access plus 1 month"
+  ExpiresByType text/css   "access plus 1 week"
+  ExpiresByType application/javascript "access plus 1 week"
+</IfModule>

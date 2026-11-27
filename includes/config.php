@@ -32,13 +32,20 @@ $isHttps = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
 define('BASE_URL', ($isHttps ? 'https' : 'http') . '://' . ($_SERVER['HTTP_HOST'] ?? 'localhost') . BASE_PATH . '/');
 
 /* ---------------------------------------------------------------
-   Database credentials — edit these for your hosting account.
+   Database credentials — note to self: edit these for the hosting account.
 ----------------------------------------------------------------*/
-define('DB_HOST', 'localhost');
-define('DB_NAME', 'your_survival_kit');
-define('DB_USER', 'ysk_user');
-define('DB_PASS', 'ysk_local_2026');
-define('DB_CHARSET', 'utf8mb4');
+// Live server settings are kept in config.live.php (server only, never in GitHub)
+if (file_exists(__DIR__ . '/config.live.php')) {
+    require __DIR__ . '/config.live.php';
+}
+
+// Local development defaults, used only if the live file doesn't define them
+defined('DB_HOST')    || define('DB_HOST', 'localhost');
+defined('DB_NAME')    || define('DB_NAME', 'your_survival_kit');
+defined('DB_USER')    || define('DB_USER', 'ysk_user');
+defined('DB_PASS')    || define('DB_PASS', 'ysk_local_2026');
+defined('DB_CHARSET') || define('DB_CHARSET', 'utf8mb4');
+
 
 /* ---------------------------------------------------------------
    Site constants

@@ -3,3 +3,4 @@ uploads/*
 docs/credentials.md
 *.log
 .DS_Store
+includes/config.live.php

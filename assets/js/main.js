@@ -78,11 +78,99 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  /* Confirm destructive actions */
-  document.querySelectorAll('[data-confirm]').forEach(form => {
-    form.addEventListener('submit', (ev) => {
-      if (!window.confirm(form.dataset.confirm || 'Are you sure?')) ev.preventDefault();
-    });
+  /* Confirm destructive actions (delegated so it keeps working after in-place updates) */
+  document.addEventListener('submit', function (ev) {
+    const form = ev.target.closest ? ev.target.closest('form[data-confirm]') : null;
+    if (!form || form.dataset.noAjax !== undefined) return;
+    if (!window.confirm(form.dataset.confirm || 'Are you sure?')) ev.preventDefault();
+  });
+
+  /* Keep admin actions on the same screen. The response replaces only .admin-content. */
+  document.addEventListener('submit', async function (ev) {
+    const form = ev.target;
+    if (ev.defaultPrevented || !form || form.tagName !== 'FORM') return;
+    if (!document.body.classList.contains('admin-body')) return;
+    if (!form.closest('.admin-content')) return;
+    if ((form.method || 'get').toLowerCase() !== 'post') return;
+    if (form.dataset.noAjax !== undefined || form.target === '_blank') return;
+
+    ev.preventDefault();
+    const content = document.querySelector('.admin-content');
+    if (!content) return;
+
+    const button = ev.submitter || form.querySelector('[type="submit"]');
+    const originalText = button ? button.innerHTML : '';
+    if (button) { button.disabled = true; button.innerHTML = '<i class="bi bi-hourglass-split"></i> Working…'; }
+
+    const data = new FormData(form);
+    if (ev.submitter && ev.submitter.name) {
+      data.delete(ev.submitter.name);
+      data.append(ev.submitter.name, ev.submitter.value);
+    }
+
+    try {
+      const response = await fetch(form.action || window.location.href, {
+        method: 'POST',
+        body: data,
+        credentials: 'same-origin',
+        redirect: 'follow',
+        headers: { 'X-Requested-With': 'fetch' }
+      });
+      const html = await response.text();
+      const doc = new DOMParser().parseFromString(html, 'text/html');
+      const next = doc.querySelector('.admin-content');
+      if (!next) { window.location.reload(); return; }
+
+      const scrollY = window.scrollY;
+      content.innerHTML = next.innerHTML;
+      document.title = doc.title || document.title;
+      if (response.url && response.url !== window.location.href) {
+        window.history.replaceState(null, '', response.url);
+      }
+      window.scrollTo(0, scrollY);
+
+      if (window.bootstrap) {
+        content.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(el => new bootstrap.Tooltip(el));
+      }
+    } catch (err) {
+      window.location.reload();
+    } finally {
+      if (button && button.isConnected) {
+        button.disabled = false;
+        button.innerHTML = originalText;
+      }
+    }
+  });
+
+  /* Image previews and step-row controls stay delegated after in-place updates. */
+  document.addEventListener('change', function (ev) {
+    const input = ev.target.closest ? ev.target.closest('[data-preview]') : null;
+    if (!input) return;
+    const target = document.querySelector(input.dataset.preview);
+    if (target && input.files && input.files[0]) {
+      target.src = URL.createObjectURL(input.files[0]);
+      target.style.display = 'block';
+    }
+  });
+
+  document.addEventListener('click', function (ev) {
+    const add = ev.target.closest ? ev.target.closest('#add-step') : null;
+    if (add) {
+      const wrap = document.getElementById('step-rows');
+      const key = add.dataset.stepKey;
+      if (wrap && key) {
+        const i = wrap.querySelectorAll('.step-row').length;
+        const row = document.createElement('div');
+        row.className = 'row g-2 mb-2 step-row';
+        row.innerHTML = `<div class="col-md-3"><input class="form-control" name="steps[${key}][${i}][title]" placeholder="Step title" maxlength="80"></div>
+          <div class="col-md-8"><input class="form-control" name="steps[${key}][${i}][text]" placeholder="Step description" maxlength="300"></div>
+          <div class="col-md-1"><button type="button" class="btn btn-outline-danger btn-sm remove-step" aria-label="Remove step"><i class="bi bi-trash"></i></button></div>`;
+        wrap.appendChild(row);
+      }
+      return;
+    }
+    const remove = ev.target.closest ? ev.target.closest('.remove-step') : null;
+    if (remove) remove.closest('.step-row').remove();
   });
 
   /* Auto-dismiss alerts after 6 seconds */
@@ -92,18 +180,6 @@ document.addEventListener('DOMContentLoaded', function () {
       if (inst) inst.close(); else alert.remove();
     }, 6000);
   });
-
-  /* Image preview in admin upload forms */
-  const imageInput = document.querySelector('[data-preview]');
-  if (imageInput) {
-    imageInput.addEventListener('change', function () {
-      const target = document.querySelector(this.dataset.preview);
-      if (target && this.files && this.files[0]) {
-        target.src = URL.createObjectURL(this.files[0]);
-        target.style.display = 'block';
-      }
-    });
-  }
 
   /* Character counter for textareas */
   document.querySelectorAll('[data-counter]').forEach(field => {

@@ -1,7 +1,9 @@
 <?php
 $adminActive = 'messages.php';
 $pageTitle   = 'Messages';
-require_once __DIR__ . '/includes/header.php';
+// Authenticate before any output so POST handlers can redirect cleanly.
+require_once dirname(__DIR__) . '/includes/auth.php';
+require_login();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     csrf_verify();
@@ -15,6 +17,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     redirect('admin/messages.php' . (isset($_GET['view']) ? '?view=' . (int) $_GET['view'] : ''));
 }
+
+// Layout only after POST handling, so redirects send no half-rendered page.
+require_once __DIR__ . '/includes/header.php';
 
 $view = (int) ($_GET['view'] ?? 0);
 if ($view) {

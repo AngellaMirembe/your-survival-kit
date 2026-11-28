@@ -7,7 +7,7 @@ $pageDescription = 'Photos from Your Survival Kit outreaches in Uganda — colle
 $activePage      = 'gallery';
 $ogImage         = asset('img/outreach/outreach-01.jpg');
 
-$images = $pdo->query('SELECT * FROM gallery ORDER BY sort_order, id DESC')->fetchAll();
+$images = $pdo->query('SELECT * FROM gallery WHERE consent_confirmed = 1 ORDER BY sort_order, id DESC')->fetchAll();
 $categories = [];
 foreach ($images as $img) {
     $categories[$img['category']] = true;

@@ -147,9 +147,37 @@ function delete_image(?string $filename): void
 
 function image_src(?string $filename, string $fallback = 'outreach/outreach-09.jpg'): string
 {
-    return $filename && is_file(UPLOAD_DIR . $filename)
-        ? UPLOAD_URL . rawurlencode($filename)
-        : asset('img/' . $fallback);
+    if ($filename) {
+        $safe = basename($filename);
+        // Preferred: an image in uploads/.
+        if (is_file(UPLOAD_DIR . $safe)) {
+            return UPLOAD_URL . rawurlencode($safe);
+        }
+        // Hosted servers sometimes miss uploads/; the outreach copy is also deployed.
+        if (is_file(dirname(__DIR__) . '/assets/img/outreach/' . $safe)) {
+            return asset('img/outreach/' . rawurlencode($safe));
+        }
+    }
+    return asset('img/' . $fallback);
+}
+
+/** Where an image is actually stored: upload, outreach fallback, missing or blank. */
+function image_location_status(?string $filename): string
+{
+    if (!$filename) return 'blank';
+    $safe = basename($filename);
+    if (is_file(UPLOAD_DIR . $safe)) return 'upload';
+    if (is_file(dirname(__DIR__) . '/assets/img/outreach/' . $safe)) return 'outreach';
+    return 'missing';
+}
+
+/** Decode a JSON setting with a safe default. */
+function setting_json(string $key, array $default): array
+{
+    $raw = setting($key, '');
+    if ($raw === '') return $default;
+    $decoded = json_decode($raw, true);
+    return is_array($decoded) ? $decoded : $default;
 }
 
 /* ---------------- Uganda phone / WhatsApp helpers ---------------- */

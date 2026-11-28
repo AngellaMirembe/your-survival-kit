@@ -25,7 +25,7 @@ include __DIR__ . '/includes/header.php';
     <div class="text-center mb-5">
       <span class="eyebrow">The model</span>
       <h2 class="section-title">Gather. Pack. Deliver.</h2>
-      <p class="lead-lg mx-auto">A short chain means less waste and more certainty about where every item ends up.</p>
+      <p class="lead-lg mx-auto"><?= e(setting('what_intro_text', 'Every kit is built around what a child actually needs for school and care. We keep the list short, useful and honest.')) ?></p>
     </div>
     <div class="row g-4">
       <?php

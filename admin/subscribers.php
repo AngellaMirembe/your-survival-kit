@@ -1,7 +1,9 @@
 <?php
 $adminActive = 'subscribers.php';
 $pageTitle   = 'Subscribers';
-require_once __DIR__ . '/includes/header.php';
+// Authenticate before any output so POST handlers can redirect cleanly.
+require_once dirname(__DIR__) . '/includes/auth.php';
+require_login();
 require_once __DIR__ . '/../includes/mail.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -53,6 +55,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     redirect('admin/subscribers.php');
 }
+
+// Layout only after POST handling, so redirects send no half-rendered page.
+require_once __DIR__ . '/includes/header.php';
 
 $rows = $pdo->query('SELECT * FROM subscribers ORDER BY created_at DESC')->fetchAll();
 $verified = 0;

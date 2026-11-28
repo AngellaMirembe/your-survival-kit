@@ -33,7 +33,7 @@ include __DIR__ . '/includes/header.php';
     </ol></nav>
     <span class="eyebrow">Come and join us</span>
     <h1>Upcoming events</h1>
-    <p>Collection drives, packing days and outreaches. Confirm your place on WhatsApp and we will share the exact meeting point.</p>
+    <p><?= e(setting('events_intro_text', 'Collection drives, packing days and outreaches. Confirm your place on WhatsApp and we will share the exact meeting point.')) ?></p>
   </div>
 </section>
 

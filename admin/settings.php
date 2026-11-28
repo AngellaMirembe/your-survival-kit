@@ -1,7 +1,9 @@
 <?php
 $adminActive = 'settings.php';
 $pageTitle   = 'Settings';
-require_once __DIR__ . '/includes/header.php';
+// Authenticate before any output so POST handlers can redirect cleanly.
+require_once dirname(__DIR__) . '/includes/auth.php';
+require_login();
 require_once __DIR__ . '/../includes/mail.php';
 
 $contactKeys = [
@@ -114,6 +116,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     redirect('admin/settings.php');
 }
+
+// Layout only after POST handling, so redirects send no half-rendered page.
+require_once __DIR__ . '/includes/header.php';
 
 $stats = $pdo->query('SELECT * FROM stats ORDER BY sort_order')->fetchAll();
 ?>

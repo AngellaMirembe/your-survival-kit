@@ -21,20 +21,20 @@ include __DIR__ . '/includes/header.php';
     <div class="row align-items-center gy-5">
       <div class="col-lg-7">
         <img src="<?= e(asset('img/logo.png')) ?>" alt="Your Survival Kit emblem" class="hero-logo">
-        <span class="badge-ys mb-3">Youth-led group • Uganda</span>
-        <h1>Gather what we have.<br><span style="color:#e5b24b">Give what matters.</span></h1>
-        <p>We are a small group of young people in Uganda collecting everyday essentials — notebooks, clothes, soap, hope — and handing them directly to children in our communities.</p>
+        <span class="badge-ys mb-3"><?= e(setting('home_hero_eyebrow', 'Youth-led group • Uganda')) ?></span>
+        <h1><?= e(setting('home_hero_title', 'Gather what we have.')) ?><br><span style="color:#e5b24b"><?= e(setting('home_hero_title_accent', 'Give what matters.')) ?></span></h1>
+        <p><?= e(setting('home_hero_text', 'We gather everyday essentials, pack them with care and hand them directly to children in communities we know.')) ?></p>
         <div class="mt-4">
           <a href="<?= e(url('donate')) ?>" class="btn btn-ys btn-lg"><i class="bi bi-heart-fill me-2"></i> Give a kit</a>
           <a href="<?= e(url('what-we-do')) ?>" class="btn btn-light-ys btn-lg">See our work</a>
         </div>
         <div class="d-flex align-items-center gap-3 mt-5 flex-wrap">
           <div class="d-flex">
-            <img src="<?= e(asset('img/outreach/leader-shanis.jpg')) ?>" class="rounded-circle border border-2 border-light" width="42" height="42" alt="Akatucungura Shanis Pretty">
-            <img src="<?= e(asset('img/outreach/outreach-01.jpg')) ?>" class="rounded-circle border border-2 border-light ms-2" width="42" height="42" alt="Outreach moment">
-            <img src="<?= e(asset('img/outreach/outreach-02.jpg')) ?>" class="rounded-circle border border-2 border-light ms-2" width="42" height="42" alt="Outreach moment">
+            <?php foreach (array_slice(setting_json('home_hero_images', ['outreach-01.jpg','outreach-02.jpg','outreach-03.jpg']), 0, 3) as $photo): ?>
+              <img src="<?= e(image_src($photo)) ?>" class="rounded-circle border border-2 border-light ms-2" width="42" height="42" alt="Your Survival Kit outreach">
+            <?php endforeach; ?>
           </div>
-          <small class="text-white-50">Led by <strong class="text-white">Akatucungura Shanis Pretty</strong> and a small team of volunteers</small>
+          <small class="text-white-50"><?= e(setting('home_hero_credit', 'Young volunteers and neighbours making it happen')) ?></small>
         </div>
       </div>
       <div class="col-lg-5 hero-image d-none d-lg-block">
@@ -175,24 +175,25 @@ include __DIR__ . '/includes/header.php';
   <div class="ys-container">
     <div class="text-center mb-5">
       <span class="eyebrow">Simple by design</span>
-      <h2 class="section-title">How the kit reaches a child</h2>
-      <p class="lead-lg mx-auto text-white-50">Three steps, no middle layers, no unnecessary overhead.</p>
+      <h2 class="section-title"><?= e(setting('home_how_title', 'How it works')) ?></h2>
+      <p class="lead-lg mx-auto text-white-50"><?= e(setting('home_how_text', 'Three simple steps. No warehouses, no middlemen — just a short chain we can account for.')) ?></p>
     </div>
     <div class="row g-4 text-center">
       <?php
-      $steps = [
-        ['1', 'bi-box-seam', 'Gather', 'Families, schools and young people contribute items they no longer need — or fund a kit we build together.'],
-        ['2', 'bi-clipboard-check', 'Sort & pack', 'Volunteers check quality, group items by age and need, and pack each kit with a handwritten note.'],
-        ['3', 'bi-person-check', 'Deliver', 'We hand kits directly to families and schools, then record the delivery and share the impact with donors.'],
-      ];
-      foreach ($steps as $s): ?>
+      $stepIcons = ['bi-box-seam', 'bi-clipboard-check', 'bi-person-check'];
+      $steps = setting_json('home_how_steps', [
+        ['title' => 'Gather', 'text' => 'Families and young people give what they can.'],
+        ['title' => 'Sort & pack', 'text' => 'Volunteers check every item and add a handwritten note.'],
+        ['title' => 'Deliver', 'text' => 'We hand each kit to a school or family ourselves.'],
+      ]);
+      foreach (array_slice($steps, 0, 3) as $i => $s): ?>
         <div class="col-md-4">
           <div class="p-4">
             <div class="mx-auto mb-3 rounded-circle" style="width:78px;height:78px;background:rgba(150,186,172,.18);font-size:1.9rem;color:#96baac;display:grid;place-items:center">
-              <i class="bi <?= $s[1] ?>"></i>
+              <i class="bi <?= e($stepIcons[$i] ?? 'bi-check2') ?>"></i>
             </div>
-            <h5>Step <?= $s[0] ?>: <?= e($s[2]) ?></h5>
-            <p class="text-white-50 small mb-0"><?= e($s[3]) ?></p>
+            <h5>Step <?= $i + 1 ?>: <?= e($s['title'] ?? '') ?></h5>
+            <p class="text-white-50 small mb-0"><?= e($s['text'] ?? '') ?></p>
           </div>
         </div>
       <?php endforeach; ?>

@@ -26,9 +26,10 @@ $menu = [
     ['key' => '',            'icon' => 'bi-grid-1x2',      'label' => 'Dashboard',         'title' => 'Dashboard overview'],
   ]],
   ['label' => 'Content', 'items' => [
+    ['key' => 'content.php', 'icon' => 'bi-layout-text-window', 'label' => 'Page content',  'title' => 'Edit headings, text and section photos'],
     ['key' => 'news.php',    'icon' => 'bi-newspaper',     'label' => 'Stories',           'title' => 'Add, edit and delete news stories'],
     ['key' => 'events.php',  'icon' => 'bi-calendar-event','label' => 'Events',            'title' => 'Add, edit, delete and announce events'],
-    ['key' => 'gallery.php', 'icon' => 'bi-images',        'label' => 'Gallery',           'title' => 'Add, edit and delete photos'],
+    ['key' => 'gallery.php', 'icon' => 'bi-images',        'label' => 'Gallery',           'title' => 'Add, edit, reorder and publish photos'],
   ]],
   ['label' => 'Community', 'items' => [
     ['key' => 'donations.php',   'icon' => 'bi-cash-stack', 'label' => 'Donation pledges', 'title' => 'Review, confirm and delete donation pledges'],
@@ -52,7 +53,7 @@ $menu = [
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
-  <link href="<?= e(asset('css/style.css') . '?v=20261126b') ?>" rel="stylesheet">
+  <link href="<?= e(asset('css/style.css') . '?v=20261128b') ?>" rel="stylesheet">
 </head>
 <body class="admin-body">
 
@@ -120,6 +121,7 @@ $menu = [
           <li><a class="dropdown-item" href="<?= e(url('admin/news.php?action=new')) ?>"><i class="bi bi-newspaper me-2"></i> New story</a></li>
           <li><a class="dropdown-item" href="<?= e(url('admin/events.php?action=new')) ?>"><i class="bi bi-calendar-event me-2"></i> New event</a></li>
           <li><a class="dropdown-item" href="<?= e(url('admin/gallery.php?action=new')) ?>"><i class="bi bi-image me-2"></i> Add photo</a></li>
+          <li><a class="dropdown-item" href="<?= e(url('admin/content.php')) ?>"><i class="bi bi-layout-text-window me-2"></i> Edit page text</a></li>
           <li><a class="dropdown-item" href="<?= e(url('admin/subscribers.php')) ?>"><i class="bi bi-person-plus me-2"></i> Add subscriber</a></li>
           <li><hr class="dropdown-divider"></li>
           <li><a class="dropdown-item" href="<?= e(url('admin/settings.php#stats')) ?>"><i class="bi bi-bar-chart me-2"></i> Impact numbers</a></li>

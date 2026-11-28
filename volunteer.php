@@ -76,7 +76,7 @@ include __DIR__ . '/includes/header.php';
     </ol></nav>
     <span class="eyebrow">Get involved</span>
     <h1>There is room for you here.</h1>
-    <p>You do not need money to make a difference. Time, attention and a little organisation go a long way.</p>
+    <p><?= e(setting('volunteer_intro_text', 'You do not need money to make a difference. Time, attention and a little organisation go a long way.')) ?></p>
     <a href="#apply" class="btn btn-ys btn-lg mt-3"><i class="bi bi-pencil-square me-2"></i> Fill the application form</a>
   </div>
 </section>

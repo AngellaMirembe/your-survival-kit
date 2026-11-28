@@ -369,5 +369,13 @@ img { max-width: 100%; }
   .table-img { width: 48px; height: 38px; }
 }
 
+/* Admin content editor */
+.ys-tabs .nav-link { color: var(--ys-brown); border: 1px solid #e0d5c8; margin-right: 4px; }
+.ys-tabs .nav-link.active { background: var(--ys-brown); border-color: var(--ys-brown); color: #fff; }
+.content-image-choice { cursor: pointer; transition: border-color .15s, box-shadow .15s; }
+.content-image-choice:hover { border-color: var(--ys-green) !important; box-shadow: 0 2px 8px rgba(0,0,0,.06); }
+.content-image-choice:has(input:checked) { border-color: var(--ys-brown) !important; background: #fbf7f1; }
+.step-row .btn { height: 38px; }
+
 /* Print */
 @media print { .ys-navbar, .ys-footer, .topbar, .no-print { display: none !important; } }

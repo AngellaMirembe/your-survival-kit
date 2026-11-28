@@ -1,7 +1,9 @@
 <?php
 $adminActive = 'donations.php';
 $pageTitle   = 'Donation pledges';
-require_once __DIR__ . '/includes/header.php';
+// Authenticate before any output so POST handlers can redirect cleanly.
+require_once dirname(__DIR__) . '/includes/auth.php';
+require_login();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     csrf_verify();
@@ -18,6 +20,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     redirect('admin/donations.php');
 }
+
+// Layout only after POST handling, so redirects send no half-rendered page.
+require_once __DIR__ . '/includes/header.php';
 
 $filter = $_GET['status'] ?? '';
 $allowed = ['', 'pending', 'confirmed', 'completed', 'cancelled'];
@@ -62,22 +67,23 @@ $total = $pdo->query('SELECT COALESCE(SUM(amount),0), COUNT(*) FROM donations')-
               <td><small><?= e(excerpt($d['message'] ?? '', 50) ?: '—') ?></small></td>
               <td><span class="status-pill status-<?= e($d['status']) ?>"><?= e(ucfirst($d['status'])) ?></span></td>
               <td><small><?= e(date('M j, Y', strtotime($d['created_at']))) ?></small></td>
-              <td class="text-nowrap">
-                <form method="post" action="<?= e(url('admin/donations.php')) ?>" class="d-flex gap-1 align-items-center">
-                  <?php csrf_field(); ?>
-                  <input type="hidden" name="do" value="status"><input type="hidden" name="id" value="<?= (int) $d['id'] ?>">
-                  <select name="status" class="form-select form-select-sm" style="width:auto">
-                    <?php foreach (['pending', 'confirmed', 'completed', 'cancelled'] as $s): ?>
-                      <option <?= $d['status'] === $s ? 'selected' : '' ?>><?= $s ?></option>
-                    <?php endforeach; ?>
-                  </select>
-                  <button class="btn btn-sm btn-outline-primary" title="Update"><i class="bi bi-check"></i></button>
-                </form>
-                <form method="post" action="<?= e(url('admin/donations.php')) ?>" class="d-inline mt-1" data-confirm="Delete this request?">
-                  <?php csrf_field(); ?>
-                  <input type="hidden" name="do" value="delete"><input type="hidden" name="id" value="<?= (int) $d['id'] ?>">
-                  <button class="btn btn-sm btn-outline-danger" title="Delete"><i class="bi bi-trash"></i></button>
-                </form>
+              <td>
+                <div class="d-flex flex-wrap gap-1 status-actions">
+                  <?php foreach (['pending' => 'Pending', 'confirmed' => 'Confirmed', 'completed' => 'Completed', 'cancelled' => 'Cancelled'] as $s => $label): ?>
+                    <form method="post" action="<?= e(url('admin/donations.php')) ?>" class="d-inline">
+                      <?php csrf_field(); ?>
+                      <input type="hidden" name="do" value="status">
+                      <input type="hidden" name="id" value="<?= (int) $d['id'] ?>">
+                      <input type="hidden" name="status" value="<?= e($s) ?>">
+                      <button class="btn btn-sm <?= $d['status'] === $s ? 'btn-ys' : 'btn-outline-secondary' ?>" title="Set status to <?= e($label) ?>"><?= e($label) ?></button>
+                    </form>
+                  <?php endforeach; ?>
+                  <form method="post" action="<?= e(url('admin/donations.php')) ?>" class="d-inline" data-confirm="Delete this request?">
+                    <?php csrf_field(); ?>
+                    <input type="hidden" name="do" value="delete"><input type="hidden" name="id" value="<?= (int) $d['id'] ?>">
+                    <button class="btn btn-sm btn-outline-danger" title="Delete"><i class="bi bi-trash"></i></button>
+                  </form>
+                </div>
               </td>
             </tr>
           <?php endforeach; ?>

@@ -1,7 +1,9 @@
 <?php
 $adminActive = 'volunteers.php';
 $pageTitle   = 'Volunteers';
-require_once __DIR__ . '/includes/header.php';
+// Authenticate before any output so POST handlers can redirect cleanly.
+require_once dirname(__DIR__) . '/includes/auth.php';
+require_login();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     csrf_verify();
@@ -18,6 +20,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     redirect('admin/volunteers.php');
 }
+
+// Layout only after POST handling, so redirects send no half-rendered page.
+require_once __DIR__ . '/includes/header.php';
 
 $filter = $_GET['status'] ?? '';
 if (!in_array($filter, ['', 'new', 'contacted', 'joined', 'declined'], true)) $filter = '';
